@@ -21,7 +21,14 @@ constexpr ModeInfo SET_MODE_INFO()
 {
   static_assert(size <= 8, "Size of the block cannot exceed 8 bits");
   static_assert(shift <= 8, "Shift amount cannot exceed 8 bits");
-  return static_cast<uint16_t>(~(UINT16_MAX << (size + 8)) | shift);
+
+  uint16_t result = UINT16_MAX;
+  result <<= size;
+  result = ~result;
+  result <<= shift + 8;
+  result |= shift;
+
+  return result;
 }
 
 enum class PCFConfig : ModeInfo {
