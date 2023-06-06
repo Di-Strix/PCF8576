@@ -1,0 +1,21 @@
+{
+  "name": "PCF8576",
+  "version": "0.0.0",
+  "description": "Arduino library for the PCF8576 LCD driver",
+  "keywords": "pcf8576, arduino",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/Di-Strix/PCF8576"
+  },
+  "authors":
+  [
+    {
+      "name": "Andrew Ushakov",
+      "url": "https://github.com/Di-Strix"
+    }
+  ],
+  "license": "MIT",
+  "frameworks": "Arduino",
+  "platforms": "espressif8266"
+}
