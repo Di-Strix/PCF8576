@@ -10,7 +10,7 @@ PCF8576::PCF8576(uint8_t address, int16_t scl, int16_t sda, TwoWire* wire)
 
 bool PCF8576::begin()
 {
-  this->_wire->begin(this->_scl, this->_sda);
+  this->_wire->begin(this->_sda, this->_scl);
   this->sendConfig();
 
   return this->isConnected();
