@@ -87,13 +87,15 @@ void PCF8576::setPixelState(uint8_t pixelIndex, bool enabled)
 {
   static uint8_t buffer[5] = { 0 };
   size_t index = std::ceil(pixelIndex / 8);
+  uint8_t shift = (7 - (pixelIndex % 8));
 
   switch (this->getLCDDriveMode()) {
   case LCDDriveMode::Static:
     if (pixelIndex >= 40)
       break;
 
-    buffer[index] = buffer[index] xor (1 << (7 - (pixelIndex % 8)));
+    buffer[index] = (buffer[index] & ~(1 << shift)) | (enabled << shift);
+
     this->_wire->beginTransmission(this->_address);
     this->_wire->write(COMMAND::NOT_LAST | COMMAND::DEVICE_SELECT | 0);
     this->_wire->write(COMMAND::LAST | 0);
