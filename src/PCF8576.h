@@ -17,7 +17,7 @@ namespace PCF8576Context {
 typedef uint16_t ModeInfo;
 
 template <uint8_t shift, uint8_t size>
-constexpr ModeInfo SET_MODE_INFO()
+constexpr ModeInfo COMPOSE_MODE_INFO()
 {
   static_assert(size <= 8, "Size of the block cannot exceed 8 bits");
   static_assert(shift <= 8, "Shift amount cannot exceed 8 bits");
@@ -32,10 +32,10 @@ constexpr ModeInfo SET_MODE_INFO()
 }
 
 enum class PCFConfig : ModeInfo {
-  PowerMode = SET_MODE_INFO<4, 1>(), // power dissipation (see PowerMode enum for available values)
-  DisplayStatus = SET_MODE_INFO<3, 1>(), // display status (see DisplayStatus enum for available values)
-  LCDBiasConfig = SET_MODE_INFO<2, 1>(), // LCD bias configuration (see LCDBiasConfig enum for available values)
-  LCDDriveMode = SET_MODE_INFO<0, 2>(), // LCD drive mode selection (see LCDDriveMode enum for available values)
+  PowerMode = COMPOSE_MODE_INFO<4, 1>(), // power dissipation (see PowerMode enum for available values)
+  DisplayStatus = COMPOSE_MODE_INFO<3, 1>(), // display status (see DisplayStatus enum for available values)
+  LCDBiasConfig = COMPOSE_MODE_INFO<2, 1>(), // LCD bias configuration (see LCDBiasConfig enum for available values)
+  LCDDriveMode = COMPOSE_MODE_INFO<0, 2>(), // LCD drive mode selection (see LCDDriveMode enum for available values)
 };
 
 constexpr uint8_t GET_MODE_SHIFT(PCFConfig info) { return static_cast<uint8_t>(info); }
