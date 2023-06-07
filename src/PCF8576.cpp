@@ -103,7 +103,11 @@ void PCF8576::setPixelState(uint8_t pixelIndex, bool enabled)
 
 bool PCF8576::sendConfig()
 {
+  this->_wire->clearWriteError();
+
   this->_wire->beginTransmission(this->_address);
-  this->_wire->endTransmission(0b01000000 | this->mode);
+  this->_wire->write(COMMAND::LAST | COMMAND::MODE_SET | this->mode);
+  this->_wire->endTransmission();
+
   return this->_wire->getWriteError() == 0;
 }
