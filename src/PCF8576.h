@@ -7,6 +7,17 @@
 
 namespace PCF8576Context {
 
+namespace COMMAND {
+  constexpr uint8_t NOT_LAST = 0b10000000;
+  constexpr uint8_t LAST = 0b00000000;
+
+  constexpr uint8_t MODE_SET = 0b01000000;
+  constexpr uint8_t LOAD_DATA_POINTER = 0b00000000;
+  constexpr uint8_t DEVICE_SELECT = 0b01100000;
+  constexpr uint8_t BANK_SELECT = 0b01111000;
+  constexpr uint8_t BLINK_SELECT = 0b01110000;
+}
+
 /*
   First eight bits of 16-bit block are reserved for shift value,
   the next 8 bits are reserved for the bitmask
