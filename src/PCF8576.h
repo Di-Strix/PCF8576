@@ -2,6 +2,7 @@
 
 #include <Arduino.h>
 #include <Wire.h>
+#include <cmath>
 #include <map>
 #include <type_traits>
 

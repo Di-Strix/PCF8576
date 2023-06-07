@@ -85,15 +85,29 @@ PCF8576Context::LCDDriveMode PCF8576::getLCDDriveMode()
 
 void PCF8576::setPixelState(uint8_t pixelIndex, bool enabled)
 {
+  static uint8_t buffer[5] = { 0 };
+  size_t index = std::ceil(pixelIndex / 8);
+
   switch (this->getLCDDriveMode()) {
   case LCDDriveMode::Static:
     if (pixelIndex >= 40)
-      return;
+      break;
 
+    buffer[index] = buffer[index] xor (1 << (7 - (pixelIndex % 8)));
     this->_wire->beginTransmission(this->_address);
-    this->_wire->write(pixelIndex);
-    this->_wire->write(enabled);
+    this->_wire->write(COMMAND::NOT_LAST | COMMAND::DEVICE_SELECT | 0);
+    this->_wire->write(COMMAND::LAST | 0);
+    this->_wire->write(buffer, 5);
     this->_wire->endTransmission();
+    break;
+
+  case LCDDriveMode::OneToTwo:
+    break;
+
+  case LCDDriveMode::OneToThree:
+    break;
+
+  case LCDDriveMode::OneToFour:
     break;
 
   default:
